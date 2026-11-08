@@ -11,5 +11,5 @@ spring:
           uri: https://github.com/dejerbakers30/Sistema_ConfigRepo.git
           default-label: main
           search-paths: config-repo
-          clone-on-start: false
+          clone-on-start: true
 
