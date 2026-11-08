@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS notificacion_log;
+
+CREATE TABLE notificacion_log (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    destinatario VARCHAR(100) NOT NULL,
+    mensaje VARCHAR(255) NOT NULL,
+    fecha TIMESTAMP NOT NULL
+);
+

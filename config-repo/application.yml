@@ -1,0 +1,15 @@
+mensaje:
+  global: "¡Bienvenido al ecosistema de microservicios de la Tienda (Configurado desde Git)!"
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  sql:
+    init:
+      mode: always
+

@@ -1,0 +1,124 @@
+### =========================================================================
+### 1. PRUEBAS DEL SERVIDOR DE CONFIGURACIÓN (config-server :8888)
+### =========================================================================
+
+### 1.1 Consultar configuración servida para ms-catalogo desde Git
+GET http://localhost:8888/ms-catalogo/default
+Accept: application/json
+
+### 1.2 Consultar configuración servida para ms-precios desde Git
+GET http://localhost:8888/ms-precios/default
+Accept: application/json
+
+### 1.3 Consultar configuración servida para ms-notificaciones desde Git
+GET http://localhost:8888/ms-notificaciones/default
+Accept: application/json
+
+
+### =========================================================================
+### 2. PRUEBAS DEL MICROSERVICIO CATÁLOGO (ms-catalogo :8081)
+### =========================================================================
+
+### 2.1 Listar productos (con mensajeGlobal y paginación inyectados de Git)
+GET http://localhost:8081/catalogo
+Accept: application/json
+
+### 2.2 Obtener producto por SKU (precargado en data.sql)
+GET http://localhost:8081/catalogo/PROD-001
+Accept: application/json
+
+### 2.3 Obtener producto por SKU inexistente (Prueba de error 404)
+GET http://localhost:8081/catalogo/PROD-999
+Accept: application/json
+
+### 2.4 Crear un nuevo producto (POST)
+POST http://localhost:8081/catalogo
+Content-Type: application/json
+
+{
+  "sku": "PROD-004",
+  "nombre": "Monitor Gamer Curvo 27'' 165Hz",
+  "categoria": "Monitores"
+}
+
+### 2.5 Actualizar producto existente (PUT)
+PUT http://localhost:8081/catalogo/1
+Content-Type: application/json
+
+{
+  "sku": "PROD-001",
+  "nombre": "Laptop Gamer Pro 16'' Ultra Edition",
+  "categoria": "Tecnología de Punta"
+}
+
+### 2.6 Eliminar producto por ID (DELETE)
+DELETE http://localhost:8081/catalogo/3
+
+
+### =========================================================================
+### 3. PRUEBAS DEL MICROSERVICIO PRECIOS (ms-precios :8082)
+### =========================================================================
+
+### 3.1 Listar todos los precios (calcula impuesto del 18% inyectado desde Git)
+GET http://localhost:8082/precios
+Accept: application/json
+
+### 3.2 Consultar precio y desglose para Laptop (1200.00 base -> 1416.00 con IGV 18%)
+GET http://localhost:8082/precios/PROD-001
+Accept: application/json
+
+### 3.3 Consultar precio para Mouse (25.50 base -> 30.09 con IGV 18%)
+GET http://localhost:8082/precios/PROD-002
+Accept: application/json
+
+### 3.4 Crear nuevo registro de precio para el nuevo monitor (POST)
+POST http://localhost:8082/precios
+Content-Type: application/json
+
+{
+  "sku": "PROD-004",
+  "precioBase": 350.00
+}
+
+### 3.5 Actualizar precio base (PUT)
+PUT http://localhost:8082/precios/2
+Content-Type: application/json
+
+{
+  "sku": "PROD-002",
+  "precioBase": 28.00
+}
+
+### 3.6 Eliminar registro de precio por ID (DELETE)
+DELETE http://localhost:8082/precios/3
+
+
+### =========================================================================
+### 4. PRUEBAS DEL MICROSERVICIO NOTIFICACIONES (ms-notificaciones :8083)
+### =========================================================================
+
+### 4.1 Enviar una notificación simulada por consola (POST)
+POST http://localhost:8083/notificacion
+Content-Type: application/json
+
+{
+  "destinatario": "cliente.vip@empresa.com",
+  "mensaje": "Su pedido #4589 ha sido empaquetado y está en camino."
+}
+
+### 4.2 Enviar segunda notificación
+POST http://localhost:8083/notificacion
+Content-Type: application/json
+
+{
+  "destinatario": "soporte@tienda.com",
+  "mensaje": "Alerta: Stock bajo en inventario para PROD-002."
+}
+
+### 4.3 Consultar historial de notificaciones en base de datos H2 (GET /logs)
+GET http://localhost:8083/logs
+Accept: application/json
+
+### 4.4 Eliminar log por ID (DELETE)
+DELETE http://localhost:8083/1
+

@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS producto;
+
+CREATE TABLE producto (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    sku VARCHAR(50) NOT NULL UNIQUE,
+    nombre VARCHAR(100) NOT NULL,
+    categoria VARCHAR(50) NOT NULL
+);
+
