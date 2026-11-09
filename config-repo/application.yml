@@ -3,13 +3,14 @@ mensaje:
 
 spring:
   jpa:
-    defer-datasource-initialization: true
     hibernate:
       ddl-auto: create-drop
     show-sql: true
+    defer-datasource-initialization: true
     properties:
       hibernate:
         format_sql: true
   sql:
     init:
       mode: always
+      encoding: UTF-8
