@@ -1,4 +1,4 @@
-﻿# Script robusto para iniciar el ecosistema Spring Cloud Config Server
+# Script robusto para iniciar el ecosistema Spring Cloud Config Server
 Write-Host "==========================================================" -ForegroundColor Cyan
 Write-Host "Iniciando ecosistema Spring Cloud Config Server..." -ForegroundColor Cyan
 Write-Host "==========================================================" -ForegroundColor Cyan
